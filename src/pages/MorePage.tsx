@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {
+  ArrowRightLeft,
   Boxes,
   ChevronRight,
   ClipboardList,
@@ -7,7 +8,9 @@ import {
   History,
   LogOut,
   Package,
+  Settings,
   Upload,
+  UserCog,
   Warehouse
 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -29,9 +32,12 @@ export default function MorePage() {
   const menu: Array<{ to: string; label: string; icon: any; adminOnly?: boolean }> = [
     { to: '/inventory', label: '재고 현황', icon: Boxes },
     { to: '/history', label: '입출고 이력', icon: ClipboardList },
+    { to: '/transfer', label: '창고 간 이동', icon: ArrowRightLeft },
     { to: '/reports', label: '보고서 / Excel', icon: FileSpreadsheet },
+    { to: '/settings', label: '설정', icon: Settings },
     { to: '/items', label: '자재 관리', icon: Package },
     { to: '/locations', label: '위치(창고) 관리', icon: Warehouse },
+    { to: '/users', label: '사용자 관리', icon: UserCog, adminOnly: true },
     { to: '/import', label: 'Excel 일괄 Import', icon: Upload, adminOnly: true },
     { to: '/audits', label: '감사 로그', icon: History, adminOnly: true }
   ]

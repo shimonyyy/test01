@@ -63,16 +63,17 @@ npm run preview
 └─ README.md
 ```
 
-## 현재 구현 범위 (Phase 1)
-- [x] 프로젝트 셋업 (Vite + TS + Tailwind + PWA)
-- [x] Supabase 클라이언트 + AuthProvider + 라우터 가드
-- [x] 로그인 / 회원가입 / 매직링크
-- [x] 모바일 하단 탭 네비 (대시보드/입고/출고/더보기)
-- [x] DB 스키마 + RLS 정책 + 입출고 RPC
-- [ ] 자재/위치 CRUD (Phase 2)
-- [ ] 입출고 폼 + QR 스캔 + 사진 첨부 (Phase 2)
-- [ ] 오프라인 큐 (Phase 2)
-- [ ] Realtime / Web Push / Excel I/O (Phase 3)
+## 구현 현황
+- [x] **Phase 1** — Vite/TS/Tailwind/PWA, Supabase 클라이언트, 로그인/회원가입, RLS·트리거·입출고 RPC
+- [x] **Phase 2** — 자재/위치 CRUD, 입출고 폼(QR 스캔·카메라 사진), 오프라인 큐(Dexie), 재고/이력
+- [x] **Phase 3** — Realtime, 이력 필터+CSV, Excel Export/Import, 감사 로그
+- [x] **Phase 4** — 사용자 관리·승인 게이트, 창고 간 이동, 설정, 사용자 매뉴얼, Vercel 설정, Playwright E2E 스캐폴드
+- [ ] Web Push 서버 전송 (Edge Function 필요 — `docs/DEPLOY.md` §4.1 참조)
+- [ ] WebAuthn 생체 로그인 (Supabase MFA Factor 연동 필요)
+
+## 문서
+- `docs/USER_GUIDE.md` — 사용자 매뉴얼
+- `docs/DEPLOY.md` — Supabase·Vercel 배포 가이드
 
 ## 라이선스
 사내 사용 (Proprietary)
