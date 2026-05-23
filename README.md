@@ -2,6 +2,8 @@
 
 PRD v2(`PRD.md`)와 개발 PLAN(`PLAN.md`)에 기반한 **모바일 우선(PWA)** 재고관리 웹앱입니다.
 
+**배포**: https://ai4ceo-f51z.vercel.app
+
 ## 기술 스택
 - React 18 + Vite + TypeScript
 - Tailwind CSS + lucide-react + sonner
