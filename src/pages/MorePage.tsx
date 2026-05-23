@@ -3,8 +3,11 @@ import {
   Boxes,
   ChevronRight,
   ClipboardList,
+  FileSpreadsheet,
+  History,
   LogOut,
   Package,
+  Upload,
   Warehouse
 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -26,9 +29,13 @@ export default function MorePage() {
   const menu: Array<{ to: string; label: string; icon: any; adminOnly?: boolean }> = [
     { to: '/inventory', label: '재고 현황', icon: Boxes },
     { to: '/history', label: '입출고 이력', icon: ClipboardList },
+    { to: '/reports', label: '보고서 / Excel', icon: FileSpreadsheet },
     { to: '/items', label: '자재 관리', icon: Package },
-    { to: '/locations', label: '위치(창고) 관리', icon: Warehouse }
+    { to: '/locations', label: '위치(창고) 관리', icon: Warehouse },
+    { to: '/import', label: 'Excel 일괄 Import', icon: Upload, adminOnly: true },
+    { to: '/audits', label: '감사 로그', icon: History, adminOnly: true }
   ]
+    .filter((m) => !m.adminOnly || isAdmin)
 
   return (
     <div className="p-4 space-y-4">

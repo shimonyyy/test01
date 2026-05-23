@@ -61,6 +61,47 @@ export function useRecordOutbound() {
   })
 }
 
+export type TxFilters = {
+  from?: string
+  to?: string
+  locationId?: string
+  itemId?: string
+  type?: 'in' | 'out' | 'transfer'
+  userId?: string
+  search?: string
+  limit?: number
+}
+
+export function useTransactions(filters: TxFilters = {}) {
+  return useQuery({
+    queryKey: ['transactions', 'list', filters],
+    queryFn: async () => {
+      let q = supabase
+        .from('transactions')
+        .select(`
+          *,
+          item:items(id,code,name,unit),
+          location:locations!transactions_location_id_fkey(id,name),
+          dest:locations!transactions_dest_location_id_fkey(id,name),
+          author:profiles!transactions_created_by_fkey(id,name,email)
+        `)
+        .order('created_at', { ascending: false })
+
+      if (filters.from) q = q.gte('transaction_date', filters.from)
+      if (filters.to) q = q.lte('transaction_date', filters.to)
+      if (filters.locationId) q = q.eq('location_id', filters.locationId)
+      if (filters.itemId) q = q.eq('item_id', filters.itemId)
+      if (filters.type) q = q.eq('type', filters.type)
+      if (filters.userId) q = q.eq('created_by', filters.userId)
+      q = q.limit(filters.limit ?? 500)
+
+      const { data, error } = await q
+      if (error) throw error
+      return data ?? []
+    }
+  })
+}
+
 export function useRecentTransactions(limit = 10) {
   return useQuery({
     queryKey: ['transactions', 'recent', limit],

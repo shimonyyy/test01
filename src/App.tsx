@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -12,11 +13,31 @@ import LocationsPage from './pages/LocationsPage'
 import AppShell from './components/layout/AppShell'
 import RequireAuth from './features/auth/RequireAuth'
 import SyncManager from './features/offline/SyncManager'
+import { useRealtimeSync } from './features/realtime/useRealtimeSync'
+
+// xlsx에 의존하는 페이지는 lazy 로딩으로 메인 번들에서 분리
+const ReportsPage = lazy(() => import('./pages/ReportsPage'))
+const ImportPage = lazy(() => import('./pages/ImportPage'))
+const AuditPage = lazy(() => import('./pages/AuditPage'))
+
+function RealtimeBridge() {
+  useRealtimeSync()
+  return null
+}
+
+function PageLoading() {
+  return (
+    <div className="flex h-full items-center justify-center text-sm text-slate-500 p-8">
+      불러오는 중…
+    </div>
+  )
+}
 
 export default function App() {
   return (
     <>
       <SyncManager />
+      <RealtimeBridge />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -35,6 +56,9 @@ export default function App() {
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/items" element={<ItemsPage />} />
           <Route path="/locations" element={<LocationsPage />} />
+          <Route path="/reports" element={<Suspense fallback={<PageLoading />}><ReportsPage /></Suspense>} />
+          <Route path="/import" element={<Suspense fallback={<PageLoading />}><ImportPage /></Suspense>} />
+          <Route path="/audits" element={<Suspense fallback={<PageLoading />}><AuditPage /></Suspense>} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
