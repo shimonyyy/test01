@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+  input, button, select, textarea {
+    font: inherit;
+  }
+  /* iOS safe areas */
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl px-4 min-h-tap font-medium transition active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary { @apply btn bg-brand-900 text-white hover:bg-brand-700; }
+  .btn-secondary { @apply btn bg-white border border-slate-200 text-slate-900 hover:bg-slate-50; }
+  .btn-ghost { @apply btn text-slate-700 hover:bg-slate-100; }
+  .field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 min-h-tap text-base outline-none focus:border-brand-900 focus:ring-2 focus:ring-brand-900/10;
+  }
+  .label { @apply block text-sm font-medium text-slate-700 mb-1.5; }
+  .card { @apply rounded-2xl bg-white border border-slate-200 p-4 shadow-sm; }
+}
